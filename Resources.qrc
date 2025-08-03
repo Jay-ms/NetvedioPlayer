@@ -1,0 +1,17 @@
+<RCC>
+    <qresource prefix="/">
+        <file>resources/ico/vedio.ico</file>
+    </qresource>
+    <qresource prefix="/img">
+        <file>resources/img/Auto.png</file>
+        <file>resources/img/Down.png</file>
+        <file>resources/img/Left.png</file>
+        <file>resources/img/Manual.png</file>
+        <file>resources/img/Reset.png</file>
+        <file>resources/img/Right.png</file>
+        <file>resources/img/Save.png</file>
+        <file>resources/img/Start.png</file>
+        <file>resources/img/Stop.png</file>
+        <file>resources/img/Up.png</file>
+    </qresource>
+</RCC>
