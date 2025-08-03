@@ -17,8 +17,37 @@ void controller::initController()
 
 void controller::initConnections()
 {
+    // view -> controller
+    connect(c_view->getControlbtnView(), &ControlbtnView::startbtnSignal, this, &controller::handleSendStart);
+
+    // view -> controller -> model
     connect(c_view->getControlbtnView(), &ControlbtnView::servoOperationstatus, this, &controller::handleServostatus);
     connect(c_view->getControlbtnView(), &ControlbtnView::systemWorkmodes, this, &controller::handleWorkmodes);
+    connect(c_view->getControlbtnView(), &ControlbtnView::selectClients, this, &controller::handleSelectclients);
+
+    // controller -> model
+    connect(this, &controller::viewSendStart, c_model, &model::handleStartbtnSignal);
+
+    // model -> controller -> view
+    connect(c_model, &model::SendImage, c_view->getVedioView(), &VedioView::getImage);
+}
+
+void controller::handleSendStart()
+{
+    QString url = c_view->getUrlView()->rtspUrladdrCombox->currentText();
+    if(c_view->getUrlView()->rtspUrladdrCombox->findText(url) == -1)
+        c_view->getUrlView()->rtspUrladdrCombox->addItem(url);
+    emit viewSendStart(url);
+}
+
+void controller::handleSendStop()
+{
+
+}
+
+void controller::handleSendCathch()
+{
+
 }
 
 void controller::handleServostatus(ServoStatus sta)
@@ -81,5 +110,31 @@ void controller::handleWorkmodes(WorkModes mode)
             }
             break;
             // 手动模式
+    }
+}
+
+void controller::handleSelectclients(Clients clt)
+{
+    switch (clt) {
+        case CLIENT1:
+            c_model->client_id = "device1";
+            c_model->idx = 0;
+            qDebug()<<"selected device1";
+        break;
+        case CLIENT2:
+            c_model->client_id = "device2";
+            c_model->idx = 1;
+            qDebug()<<"selected device2";
+        break;
+        case CLIENT3:
+            c_model->client_id = "device3";
+            c_model->idx = 2;
+            qDebug()<<"selected device3";
+        break;
+        case CLIENT4:
+            c_model->client_id = "device4";
+            c_model->idx = 3;
+            qDebug()<<"selected device4";
+        break;
     }
 }

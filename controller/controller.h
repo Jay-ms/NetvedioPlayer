@@ -22,10 +22,16 @@ private:
     void initConnections();
 
 public slots:
+    void handleSendStart();
+    void handleSendStop();
+    void handleSendCathch();
+
     void handleServostatus(ServoStatus sta);
     void handleWorkmodes(WorkModes mode);
+    void handleSelectclients(Clients clt);
 
 signals:
+    void viewSendStart(QString rtsp_url);
 
 };
 

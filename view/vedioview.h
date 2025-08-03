@@ -5,7 +5,7 @@
 #include <QGridLayout>
 #include <QLabel>
 #include <QImage>
-#define  MAX_STREAMS 4
+#define  MAX_VEDIO 4
 
 class VedioView : public QWidget
 {
@@ -19,8 +19,10 @@ private:
     void initConnection();
 
     QGridLayout *vedioGrid;
-    QLabel      *Video[MAX_STREAMS];
-    QImage      currentFrame[MAX_STREAMS];
+    QLabel      *Video[MAX_VEDIO];
+
+public slots:
+    void getImage(int idx, QImage img);
 
 signals:
 

@@ -2,8 +2,10 @@
 #define MODEL_H
 
 #include <QObject>
+#include <QThread>
 #include "tcpserver.h"
 #include "ffmpegutils.h"
+#define MAX_STREAMS 4
 
 class model : public QObject
 {
@@ -16,10 +18,18 @@ public:
     ~model();
     tcpserver *gettcpserver() {return m_tcpserver;}
 
+public slots:
+    void handleStartbtnSignal(QString view_url);
+
 private:
+    // ffmpeg
+    ffmpegutils *m_ffmpeg[MAX_STREAMS];
+    QThread     *m_thread[MAX_STREAMS];
+    // tcp
     tcpserver *m_tcpserver;
 
 signals:
+    void SendImage(int idx, QImage img);
 
 };
 

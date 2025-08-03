@@ -81,6 +81,17 @@ void ControlbtnView::initUI()
 
 void ControlbtnView::initConnection()
 {
+    // 视频事件按钮信号
+    connect(StartButton, &QPushButton::clicked, this, [=](){
+        emit startbtnSignal();
+    });
+    connect(StartButton, &QPushButton::clicked, this, [=](){
+        emit stopbtnSignal();
+    });
+    connect(StartButton, &QPushButton::clicked, this, [=](){
+        emit catchbtnSignal();
+    });
+
     // 发送云台控制按钮信号
     connect(btnUp, &QPushButton::clicked, this, [=](){
         emit servoOperationstatus(SERVO_UP);
@@ -104,5 +115,19 @@ void ControlbtnView::initConnection()
     });
     connect(btnManual, &QPushButton::clicked, this, [=](){
         emit systemWorkmodes(MODE_MANUAL);
+    });
+
+    // 发送候选客户端选择按钮信息
+    connect(btnclient1, &QPushButton::clicked, this, [=](){
+        emit selectClients(CLIENT1);
+    });
+    connect(btnclient2, &QPushButton::clicked, this, [=](){
+        emit selectClients(CLIENT2);
+    });
+    connect(btnclient3, &QPushButton::clicked, this, [=](){
+        emit selectClients(CLIENT3);
+    });
+    connect(btnclient4, &QPushButton::clicked, this, [=](){
+        emit selectClients(CLIENT4);
     });
 }

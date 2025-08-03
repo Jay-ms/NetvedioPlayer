@@ -1,4 +1,5 @@
 #include "vedioview.h"
+#include <QDebug>
 
 VedioView::VedioView(QWidget *parent) : QWidget(parent)
 {
@@ -18,7 +19,7 @@ void VedioView::initUI()
     vedioGrid->setSpacing(10);
     vedioGrid->setContentsMargins(5, 5, 5, 5);
 
-    for (int i = 0; i < MAX_STREAMS; ++i)
+    for (int i = 0; i < MAX_VEDIO; ++i)
     {
         Video[i] = new QLabel();
         Video[i]->setMinimumSize(300, 220);
@@ -32,4 +33,9 @@ void VedioView::initUI()
 void VedioView::initConnection()
 {
 
+}
+
+void VedioView::getImage(int idx, QImage img)
+{
+    Video[idx]->setPixmap(QPixmap::fromImage(img));
 }

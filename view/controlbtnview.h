@@ -6,6 +6,7 @@
 #include <QHBoxLayout>
 #include <QGridLayout>
 #include <QPushButton>
+#include "urlview.h"
 
 // 定义云台枚举类型
 enum ServoStatus {
@@ -20,6 +21,14 @@ enum ServoStatus {
 enum WorkModes{
     MODE_AUTO,
     MODE_MANUAL,
+};
+
+// 定义客户端ID
+enum Clients{
+    CLIENT1,
+    CLIENT2,
+    CLIENT3,
+    CLIENT4,
 };
 
 class ControlbtnView : public QWidget
@@ -61,9 +70,12 @@ private:
     QPushButton *btnclient4;
 
 signals:
-    // 统一云台控制信号
+    void startbtnSignal();
+    void stopbtnSignal();
+    void catchbtnSignal();
     void servoOperationstatus(ServoStatus sta);
     void systemWorkmodes(WorkModes mode);
+    void selectClients(Clients clt);
 
 };
 

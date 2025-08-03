@@ -10,6 +10,7 @@ class UrlView : public QWidget
 {
     Q_OBJECT
 public:
+    QComboBox   *rtspUrladdrCombox;
     explicit UrlView(QWidget *parent = nullptr);
     ~UrlView();
 
@@ -21,7 +22,6 @@ private:
 
     QHBoxLayout *urlLayout;
     QLabel      *rtspUrlLabel;
-    QComboBox   *rtspUrladdrCombox;
 };
 
 #endif // URLVIEW_H
