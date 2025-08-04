@@ -85,10 +85,10 @@ void ControlbtnView::initConnection()
     connect(StartButton, &QPushButton::clicked, this, [=](){
         emit startbtnSignal();
     });
-    connect(StartButton, &QPushButton::clicked, this, [=](){
+    connect(StopButton, &QPushButton::clicked, this, [=](){
         emit stopbtnSignal();
     });
-    connect(StartButton, &QPushButton::clicked, this, [=](){
+    connect(SaveButton, &QPushButton::clicked, this, [=](){
         emit catchbtnSignal();
     });
 

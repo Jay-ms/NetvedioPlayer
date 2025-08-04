@@ -49,3 +49,19 @@ void view::initConnection()
 {
 
 }
+
+void view::getErrorcodes(int err)
+{
+    switch (err) {
+        case -1: QMessageBox::warning(this, "warning", "Couldn't open input strem", QMessageBox::Ok);break;
+        case -2: QMessageBox::warning(this, "warning", "Couldn't find stream information", QMessageBox::Ok);break;
+        case -3: QMessageBox::warning(this, "warning", "Didn't find a vedio stream", QMessageBox::Ok);break;
+        case -4: QMessageBox::warning(this, "warning", "avcodec_find_decoder AV_CODEC_ID_H264 fail!", QMessageBox::Ok);break;
+        case -5: QMessageBox::warning(this, "warning", "avcodec_alloc_context3 fail!", QMessageBox::Ok);break;
+        case -6: QMessageBox::warning(this, "warning", "avcodec_parameters_to_context fail!", QMessageBox::Ok);break;
+        case -7: QMessageBox::warning(this, "warning", "avcodec_open2 fail", QMessageBox::Ok);break;
+        case -8: QMessageBox::warning(this, "warning", "Failed to allocate AVPacket", QMessageBox::Ok);break;
+        default: break;
+    }
+    this->getUrlView()->rtspUrladdrCombox->setDisabled(false);
+}

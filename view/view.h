@@ -2,6 +2,7 @@
 #define VIEW_H
 
 #include <QWidget>
+#include <QMessageBox>
 #include "urlview.h"
 #include "vedioview.h"
 #include "controlbtnview.h"
@@ -30,6 +31,9 @@ private:
     VedioView *vedioview;
     ControlbtnView *controlbtnview;
     InfoView *infoview;
+
+public slots:
+    void getErrorcodes(int err);
 
 signals:
 

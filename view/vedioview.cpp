@@ -37,5 +37,13 @@ void VedioView::initConnection()
 
 void VedioView::getImage(int idx, QImage img)
 {
+    currentFrame[idx] = img;         // 存取当前帧
     Video[idx]->setPixmap(QPixmap::fromImage(img));
+}
+
+void VedioView::getFinishedvideo(int idx)
+{
+    currentFrame[idx] = QImage();       // 清除当前帧
+    Video[idx]->setPixmap(QPixmap());
+    Video[idx]->setStyleSheet("background-color: black;");
 }

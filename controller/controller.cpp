@@ -19,17 +19,21 @@ void controller::initConnections()
 {
     // view -> controller
     connect(c_view->getControlbtnView(), &ControlbtnView::startbtnSignal, this, &controller::handleSendStart);
+    connect(c_view->getControlbtnView(), &ControlbtnView::catchbtnSignal, this, &controller::handleSendCathch);
+
+    // controller -> model
+    connect(this, &controller::viewSendStart, c_model, &model::handleStartbtnSignal);
 
     // view -> controller -> model
     connect(c_view->getControlbtnView(), &ControlbtnView::servoOperationstatus, this, &controller::handleServostatus);
     connect(c_view->getControlbtnView(), &ControlbtnView::systemWorkmodes, this, &controller::handleWorkmodes);
     connect(c_view->getControlbtnView(), &ControlbtnView::selectClients, this, &controller::handleSelectclients);
-
-    // controller -> model
-    connect(this, &controller::viewSendStart, c_model, &model::handleStartbtnSignal);
+    connect(c_view->getControlbtnView(), &ControlbtnView::stopbtnSignal, c_model, &model::handleStopbtnSignal);
 
     // model -> controller -> view
     connect(c_model, &model::SendImage, c_view->getVedioView(), &VedioView::getImage);
+    connect(c_model, &model::SendFinishvideo, c_view->getVedioView(), &VedioView::getFinishedvideo);
+    connect(c_model, &model::SendErrorcodes, c_view, &view::getErrorcodes);
 }
 
 void controller::handleSendStart()
@@ -40,14 +44,25 @@ void controller::handleSendStart()
     emit viewSendStart(url);
 }
 
-void controller::handleSendStop()
-{
-
-}
-
 void controller::handleSendCathch()
 {
+    if (c_model->idx < 0 || c_model->idx >= MAX_STREAMS) return;
+    if (c_view->getVedioView()->currentFrame[c_model->idx].isNull()) {
+        QMessageBox::warning(c_view, "警告", "当前图像为空，无法保存！");
+        return;
+    }
+    QString fileName = QFileDialog::getSaveFileName(c_view,
+                        tr("保存图像"),
+                        QDateTime::currentDateTime().toString("yyyyMMdd_hhmmss") + ".png",
+                        tr("PNG 图像 (*.png);;JPEG 图像 (*.jpg)"));
 
+    if (!fileName.isEmpty()) {
+        if (c_view->getVedioView()->currentFrame[c_model->idx].save(fileName)) {
+            QMessageBox::information(c_view, "成功", "图像已保存到：\n" + fileName);
+        } else {
+            QMessageBox::warning(c_view, "错误", "图像保存失败！");
+        }
+    }
 }
 
 void controller::handleServostatus(ServoStatus sta)
@@ -137,4 +152,5 @@ void controller::handleSelectclients(Clients clt)
             qDebug()<<"selected device4";
         break;
     }
+    c_view->getInfoView()->currentclientID->setText(QString::number(c_model->idx));
 }

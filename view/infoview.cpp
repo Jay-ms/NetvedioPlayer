@@ -20,7 +20,7 @@ void InfoView::initUI()
             font-size: 16px;
             color: #9ecfff;
         })");
-    currentclientID = new QLabel(QString::number(idx));
+    currentclientID = new QLabel(QString::number(0));
     currentclientID->setFixedWidth(50);
     currentclientID->setAlignment(Qt::AlignCenter);
     currentclientID->setStyleSheet(R"(

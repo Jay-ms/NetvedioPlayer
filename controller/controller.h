@@ -2,6 +2,9 @@
 #define CONTROLLER_H
 
 #include <QObject>
+#include <QFileDialog>
+#include <QMessageBox>
+#include <QDateTime>
 #include "view/view.h"
 #include "model/model.h"
 
@@ -23,7 +26,6 @@ private:
 
 public slots:
     void handleSendStart();
-    void handleSendStop();
     void handleSendCathch();
 
     void handleServostatus(ServoStatus sta);
@@ -32,6 +34,7 @@ public slots:
 
 signals:
     void viewSendStart(QString rtsp_url);
+    void viewSendStop();
 
 };
 

@@ -11,6 +11,7 @@ class VedioView : public QWidget
 {
     Q_OBJECT
 public:
+    QImage      currentFrame[MAX_VEDIO];
     explicit VedioView(QWidget *parent = nullptr);
     ~VedioView();
 
@@ -23,6 +24,7 @@ private:
 
 public slots:
     void getImage(int idx, QImage img);
+    void getFinishedvideo(int idx);
 
 signals:
 

@@ -20,6 +20,8 @@ public:
 
 public slots:
     void handleStartbtnSignal(QString view_url);
+    void handleStopbtnSignal();
+    void handleFinishedvideo();
 
 private:
     // ffmpeg
@@ -30,7 +32,8 @@ private:
 
 signals:
     void SendImage(int idx, QImage img);
-
+    void SendFinishvideo(int idx);
+    void SendErrorcodes(int error);
 };
 
 #endif // MODEL_H
