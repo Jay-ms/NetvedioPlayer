@@ -57,6 +57,29 @@ void ControlbtnView::initUI()
     modeLayout->addWidget(btnManual);
     modeLayout->addStretch();
 
+    // 速度调控滑动条
+    SliderLayout = new QHBoxLayout();
+    SliderLayout->setSpacing(10);
+    SliderLayout->setContentsMargins(5, 5, 5, 5);
+    Speedslider = new QSlider(Qt::Horizontal);
+    Speedslider->setValue(5);
+    Speedslider->setMinimum(2);
+    Speedslider->setMaximum(8);
+    Speedslider->setTickInterval(1);
+    SpeedLabel = new QLabel(QString::number(5), this);
+    SpeedLabel->setStyleSheet(R"(
+            QLabel {
+                font-weight: bold;
+                font-size: 18px;
+                color: #9ecfff;
+            })");
+    SliderLayout->addWidget(Speedslider);
+    SliderLayout->addWidget(SpeedLabel);
+    connect(Speedslider, &QSlider::valueChanged, this, [=](int value){
+        SpeedLabel->setText(QString::number(value));
+        emit SpeedChanged(value);
+    });
+
     // 客户端选择按钮
     clientbtnLayout = new QHBoxLayout();
     QList<QPushButton*> clients;
@@ -76,6 +99,7 @@ void ControlbtnView::initUI()
     btnLayout->addLayout(vediobtnLayout);
     btnLayout->addLayout(btnGrid);
     btnLayout->addLayout(modeLayout);
+    btnLayout->addLayout(SliderLayout);
     btnLayout->addLayout(clientbtnLayout);
 }
 

@@ -6,6 +6,7 @@
 #include <QHBoxLayout>
 #include <QGridLayout>
 #include <QPushButton>
+#include <QSlider>
 #include "urlview.h"
 
 // 定义云台枚举类型
@@ -62,6 +63,11 @@ private:
     QPushButton *btnAuto;
     QPushButton *btnManual;
 
+    // 云台速度调控
+    QHBoxLayout *SliderLayout;
+    QSlider *Speedslider;
+    QLabel *SpeedLabel;
+
     // 视频接入客户端切换
     QHBoxLayout *clientbtnLayout;
     QPushButton *btnclient1;
@@ -70,6 +76,7 @@ private:
     QPushButton *btnclient4;
 
 signals:
+    void SpeedChanged(int value);
     void startbtnSignal();
     void stopbtnSignal();
     void catchbtnSignal();

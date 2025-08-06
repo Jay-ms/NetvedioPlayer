@@ -12,6 +12,7 @@ class controller : public QObject
 {
     Q_OBJECT
 public:
+    int speedvalue = 5;
     explicit controller(QObject *parent = nullptr);
 
     void setModel(model *model){c_model = model;}

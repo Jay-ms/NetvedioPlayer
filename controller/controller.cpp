@@ -20,6 +20,7 @@ void controller::initConnections()
     // view -> controller
     connect(c_view->getControlbtnView(), &ControlbtnView::startbtnSignal, this, &controller::handleSendStart);
     connect(c_view->getControlbtnView(), &ControlbtnView::catchbtnSignal, this, &controller::handleSendCathch);
+    connect(c_view->getControlbtnView(), &ControlbtnView::SpeedChanged, this, [=](int value){speedvalue = value;});
 
     // controller -> model
     connect(this, &controller::viewSendStart, c_model, &model::handleStartbtnSignal);
@@ -71,35 +72,40 @@ void controller::handleServostatus(ServoStatus sta)
     switch (sta) {
         case SERVO_UP:
             if (!clients.isEmpty() && clients[c_model->client_id]) {
-                clients[c_model->client_id]->write("up\n");
+                std::string message = "up" + std::to_string(this->speedvalue) + "\n";
+                clients[c_model->client_id]->write(message.c_str());
                 qDebug() << "向上移动";
             }
             break;
             // 处理向上移动
         case SERVO_DOWN:
             if (!clients.isEmpty() && clients[c_model->client_id]) {
-                clients[c_model->client_id]->write("down\n");
+                std::string message = "down" + std::to_string(this->speedvalue) + "\n";
+                clients[c_model->client_id]->write(message.c_str());
                 qDebug() << "向下移动";
             }
             break;
             // 处理向下移动
         case SERVO_LEFT:
             if (!clients.isEmpty() && clients[c_model->client_id]) {
-                clients[c_model->client_id]->write("left\n");
+                std::string message = "left" + std::to_string(this->speedvalue) + "\n";
+                clients[c_model->client_id]->write(message.c_str());
                 qDebug() << "向左移动";
             }
             break;
             // 处理向左移动
         case SERVO_RIGHT:
             if (!clients.isEmpty() && clients[c_model->client_id]) {
-                clients[c_model->client_id]->write("right\n");
+                std::string message = "right" + std::to_string(this->speedvalue) + "\n";
+                clients[c_model->client_id]->write(message.c_str());
                 qDebug() << "向右移动";
             }
             break;
             // 处理向右移动
         case SERVO_RESET:
             if (!clients.isEmpty() && clients[c_model->client_id]) {
-                clients[c_model->client_id]->write("Reset\n");
+                std::string message = "Reset" + std::to_string(this->speedvalue) + "\n";
+                clients[c_model->client_id]->write(message.c_str());
                 qDebug() << "复位";
             }
             break;
