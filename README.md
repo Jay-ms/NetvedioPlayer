@@ -8,7 +8,7 @@
 ## 项目简介
 NetvedioPlayer 是一个基于 Qt 的网络视频流播放器，作为 NetvedioAgent（具备 AI 识别功能的网络监控摄像头）前端工程。界面如下：
 
-![NetvedioPlayer 界面](https://github.com/user-attachments/assets/659ac641-6c7a-4158-aa62-e619f6bcd769)
+![Uploading image.png…]()
 
 ## 架构设计
 
