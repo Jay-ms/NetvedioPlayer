@@ -5,6 +5,8 @@
 #include <QThread>
 #include "tcpserver.h"
 #include "ffmpegutils.h"
+#include "sqliteoperator.h"
+
 #define MAX_STREAMS 4
 
 class model : public QObject
@@ -17,6 +19,7 @@ public:
     explicit model(QObject *parent = nullptr);
     ~model();
     tcpserver *gettcpserver() {return m_tcpserver;}
+    sqliteoperator *getsqliteoperator() {return m_sqlitedb;}
 
 public slots:
     void handleStartbtnSignal(QString view_url);
@@ -29,6 +32,8 @@ private:
     QThread     *m_thread[MAX_STREAMS];
     // tcp
     tcpserver *m_tcpserver;
+    //sqlite
+    sqliteoperator *m_sqlitedb;
 
 signals:
     void SendImage(int idx, QImage img);

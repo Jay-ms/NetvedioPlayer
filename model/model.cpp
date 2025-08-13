@@ -3,6 +3,7 @@
 model::model(QObject *parent) : QObject(parent)
 {
     m_tcpserver = new tcpserver;
+    m_sqlitedb = new sqliteoperator;
 }
 
 model::~model()

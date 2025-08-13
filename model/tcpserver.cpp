@@ -32,7 +32,7 @@ void tcpserver::initTcpserver()
 {
     tcp_server = new QTcpServer(this);
 
-    if(tcp_server->listen(QHostAddress::Any, port))     // 后台监听是否有客户端发起连接请求
+    if(tcp_server->listen(QHostAddress::Any, TCP_PORT))     // 后台监听是否有客户端发起连接请求
     {
         qDebug()<<"Monitoring client devices...";
         connect(tcp_server, &QTcpServer::newConnection, this, &tcpserver::newConnection_slot);

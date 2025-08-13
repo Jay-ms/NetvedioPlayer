@@ -6,7 +6,7 @@
 #include <QTcpSocket>
 #include <QList>
 
-#define port 6666
+#define TCP_PORT 6666
 
 class tcpserver : public QObject
 {

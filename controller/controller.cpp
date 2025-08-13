@@ -30,6 +30,10 @@ void controller::initConnections()
     connect(c_view->getControlbtnView(), &ControlbtnView::systemWorkmodes, this, &controller::handleWorkmodes);
     connect(c_view->getControlbtnView(), &ControlbtnView::selectClients, this, &controller::handleSelectclients);
     connect(c_view->getControlbtnView(), &ControlbtnView::stopbtnSignal, c_model, &model::handleStopbtnSignal);
+    connect(c_view->getUrlView(), &UrlView::readDbUrl, this, [=](){
+        c_view->getUrlView()->rtspUrladdrCombox->addItems(c_model->getsqliteoperator()->queryTable());
+    });
+    emit c_view->getUrlView()->readDbUrl();                                 // 触发读取数据已存储URL信号（确保 connect 之后再 emit）
 
     // model -> controller -> view
     connect(c_model, &model::SendImage, c_view->getVedioView(), &VedioView::getImage);
@@ -41,7 +45,10 @@ void controller::handleSendStart()
 {
     QString url = c_view->getUrlView()->rtspUrladdrCombox->currentText();
     if(c_view->getUrlView()->rtspUrladdrCombox->findText(url) == -1)
+    {
         c_view->getUrlView()->rtspUrladdrCombox->addItem(url);
+        c_model->getsqliteoperator()->insertUrlToDb(url);
+    }
     emit viewSendStart(url);
 }
 
@@ -120,6 +127,7 @@ void controller::handleWorkmodes(WorkModes mode)
         case MODE_AUTO:
             if (!clients.isEmpty() && clients[c_model->client_id]) {
                 clients[c_model->client_id]->write("auto\n");
+                c_view->getInfoView()->currentmodeSELECT->setText("A");
                 qDebug() << "自动模式";
             }
             break;
@@ -127,6 +135,7 @@ void controller::handleWorkmodes(WorkModes mode)
         case MODE_MANUAL:
             if (!clients.isEmpty() && clients[c_model->client_id]) {
                 clients[c_model->client_id]->write("manual\n");
+                c_view->getInfoView()->currentmodeSELECT->setText("M");
                 qDebug() << "手动模式";
             }
             break;

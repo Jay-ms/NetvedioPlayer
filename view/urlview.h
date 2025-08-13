@@ -15,6 +15,7 @@ public:
     ~UrlView();
 
 signals:
+    void readDbUrl();
 
 private:
     void initUI();

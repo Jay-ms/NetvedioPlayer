@@ -1,4 +1,4 @@
-QT       += core gui network
+QT       += core gui network sql
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -21,6 +21,7 @@ SOURCES += \
     mainwindow.cpp \
     model/ffmpegutils.cpp \
     model/model.cpp \
+    model/sqliteoperator.cpp \
     model/tcpserver.cpp \
     view/controlbtnview.cpp \
     view/infoview.cpp \
@@ -33,6 +34,7 @@ HEADERS += \
     mainwindow.h \
     model/ffmpegutils.h \
     model/model.h \
+    model/sqliteoperator.h \
     model/tcpserver.h \
     view/controlbtnview.h \
     view/infoview.h \
